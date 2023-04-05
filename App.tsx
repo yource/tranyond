@@ -17,6 +17,8 @@ import {
   View,
 } from 'react-native';
 
+import { Button } from '@ant-design/react-native';
+
 import {
   Colors,
   DebugInstructions,
@@ -76,6 +78,7 @@ function App(): JSX.Element {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
+            <Button>Start</Button>
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
