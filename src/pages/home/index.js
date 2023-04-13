@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, View, Text, Image, Pressable, ImageBackground } from 'react-native';
+import { SafeAreaView, ScrollView, View, Text, Image, Pressable, ImageBackground, TouchableOpacity } from 'react-native';
 import { Toast, Icon } from '@ant-design/react-native';
-import { Dimensions } from 'react-native'
 import styles from './styles';
 import calculators from '../../constant/calculators';
-import products from '../../constant/products';
+import { useSelector, useDispatch } from 'react-redux';
 
-const { width, height } = Dimensions.get("window");
-const imageSize = width - 72;
+const imageSize = _global.width - 72;
 function HomePage({ navigation }) {
+    const dispatch = useDispatch();
+    const userinfo = useSelector(state => state.user.userinfo);
+    const list = useSelector(state=>state.products.list);
     const [type, setType] = useState('Products')
     const toggleClick = () => {
         setType(type == "Products" ? "Calculator" : "Products")
@@ -17,31 +18,33 @@ function HomePage({ navigation }) {
         <SafeAreaView>
             <ScrollView style={styles.page}>
                 <View style={styles.header}>
-                    <Pressable style={styles.toggleBtn} fill='none' onPress={toggleClick}>
-                        <Image style={styles.toggleIcon} source={require('../../assets/images/toggle.png')} />
+                    <TouchableOpacity activeOpacity={0.5} style={styles.toggleBtn} fill='none' onPress={toggleClick}>
+                        <Image style={styles.toggleIcon} source={require('../../assets/icon/toggle.png')} />
                         <Text style={styles.toggleText}>{type}</Text>
-                    </Pressable>
-                    <Pressable onPress={() => { navigation.navigate("user") }}>
-                        <Image style={styles.userIcon} source={require('../../assets/images/user.png')} />
-                    </Pressable>
+                    </TouchableOpacity>
+                    <TouchableOpacity activeOpacity={0.5} onPress={() => { navigation.navigate("user") }}>
+                        <Image style={styles.userIcon} source={require('../../assets/icon/user.png')} />
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.listCon}>
-                {
-                    type === "Products" ? products.map(item => (
-                        <Pressable key={item.id} onPress={() => { navigation.navigate(item.path) }} style={{
-                            width: imageSize, height: imageSize, marginBottom: 32, borderRadius: 10, overflow:'hidden'
-                        }}>
-                            <ImageBackground source={{uri: item.pic}} resizeMode="cover" style={{
-                                width: imageSize, height: imageSize, justifyContent:'flex-end'
+                    {
+                        type === "Products" ? list.map(item => (
+                            <Pressable key={item.id} onPress={() => { navigation.navigate(item.path) }} style={{
+                                width: imageSize, height: imageSize, marginBottom: 32, borderRadius: 10, overflow: 'hidden'
                             }}>
-                                <Text style={styles.productName}>{item.name}</Text>
-                                <Text style={styles.productDesc}>{item.desc}</Text>
-                            </ImageBackground>
-                        </Pressable>
-                    )) : (
-                        <View><Text>Calculator</Text></View>
-                    )
-                }
+                                <View style={styles.imgBg}>
+                                    <ImageBackground source={{ uri: item.pic }} resizeMode="cover" style={{
+                                        width: imageSize, height: imageSize, justifyContent: 'flex-end'
+                                    }}>
+                                        <Text style={styles.productName}>{item.name}</Text>
+                                        <Text style={styles.productDesc}>{item.desc}</Text>
+                                    </ImageBackground>
+                                </View>
+                            </Pressable>
+                        )) : (
+                            <View><Text>Calculator</Text></View>
+                        )
+                    }
                 </View>
             </ScrollView>
         </SafeAreaView>

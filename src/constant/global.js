@@ -1,8 +1,9 @@
 import {Dimensions} from 'react-native'
 const {width,height} = Dimensions.get("window");
-export default {
-    screenWidth: width,
-    screenHeight: height,
+
+_global =  {
+    width: width,
+    height: height,
     fontSize: 14,
     fontColor: '#f2f4f5',
     fontColor1: '#f7f9fb',
@@ -10,3 +11,4 @@ export default {
     pageBackgroundColor: '#18191a',
     pageBackgroundColorDark: '#000000',
 }
+export default _global;

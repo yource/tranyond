@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import globalStyle from '../../constant/globalStyle';
 
 const styles = StyleSheet.create({
     page:{
@@ -9,7 +8,7 @@ const styles = StyleSheet.create({
     },
     header: {
         height: 64,
-        fontSize: globalStyle.fontSize,
+        fontSize: _global.fontSize,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems:'center',
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
         height: 20
     },
     toggleText: {
-        color: globalStyle.fontColor,
+        color: _global.fontColor,
         paddingLeft: 8,
         fontSize: 20,
         fontWeight: 600
@@ -38,12 +37,15 @@ const styles = StyleSheet.create({
     listCon: {
         alignItems:'center'
     },
+    imgBg: {
+        backgroundColor: "#000000"
+    },
     productName: {
         paddingLeft: 14,
         fontSize: 20,
         fontWeight: 600,
         color: "#ffffff",
-        backgroundColor: "rgba(0,0,0,0.2)",
+        backgroundColor: "rgba(0,0,0,0.4)",
         lineHeight: 30
     },
     productDesc:{
@@ -52,8 +54,8 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         fontSize: 14,
         fontWeight: 500,
-        color: globalStyle.fontColor,
-        backgroundColor: "rgba(0,0,0,0.2)",
+        color: _global.fontColor,
+        backgroundColor: "rgba(0,0,0,0.4)",
     }
 });
 
