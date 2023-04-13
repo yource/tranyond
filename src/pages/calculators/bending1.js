@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import intl from 'react-intl-universal';
 import { Text, View, ScrollView, TextInput, Image, Animated, Easing } from 'react-native';
 import { Button } from '@rneui/themed';
 import { Loading, Toast, PageHeader, Select } from '../../components';

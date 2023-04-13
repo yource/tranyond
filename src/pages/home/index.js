@@ -2,14 +2,38 @@ import React, { useState } from 'react';
 import { SafeAreaView, ScrollView, View, Text, Image, Pressable, ImageBackground, TouchableOpacity } from 'react-native';
 import { Toast, Icon } from '@ant-design/react-native';
 import styles from './styles';
-import calculators from '../../constant/calculators';
 import { useSelector, useDispatch } from 'react-redux';
 
-const imageSize = _global.width - 72;
+const calculator = [{
+    path: "bending1",
+    name: "Bending Force",
+    pic: require("../../assets/images/bending01.png")
+}, {
+    path: "bending2",
+    name: "V Opening",
+    pic: require("../../assets/images/bending02.png")
+}, {
+    path: "bending3",
+    name: "Bend Edge",
+    pic: require("../../assets/images/bending03.png")
+}, {
+    path: "bending6",
+    name: "Sheetmetal Weight",
+    pic: require("../../assets/images/bending06.png")
+}, {
+    path: "bending4",
+    name: "Radiused Blump Bending",
+    pic: require("../../assets/images/bending04.png")
+}, {
+    path: "bending5",
+    name: "K factor, bend allowance and Y factor",
+    pic: require("../../assets/images/bending05.png")
+}]
+
 function HomePage({ navigation }) {
     const dispatch = useDispatch();
     const userinfo = useSelector(state => state.user.userinfo);
-    const list = useSelector(state=>state.products.list);
+    const list = useSelector(state => state.products.list);
     const [type, setType] = useState('Products')
     const toggleClick = () => {
         setType(type == "Products" ? "Calculator" : "Products")
@@ -29,21 +53,25 @@ function HomePage({ navigation }) {
                 <View style={styles.listCon}>
                     {
                         type === "Products" ? list.map(item => (
-                            <Pressable key={item.id} onPress={() => { navigation.navigate(item.path) }} style={{
-                                width: imageSize, height: imageSize, marginBottom: 32, borderRadius: 10, overflow: 'hidden'
-                            }}>
+                            <TouchableOpacity activeOpacity={0.5} key={item.id} onPress={()=>{navigation.navigate(item.path)}} style={styles.productCon}>
                                 <View style={styles.imgBg}>
-                                    <ImageBackground source={{ uri: item.pic }} resizeMode="cover" style={{
-                                        width: imageSize, height: imageSize, justifyContent: 'flex-end'
-                                    }}>
+                                    <ImageBackground source={{ uri: item.pic }} resizeMode="cover" style={styles.productImg}>
                                         <Text style={styles.productName}>{item.name}</Text>
                                         <Text style={styles.productDesc}>{item.desc}</Text>
                                     </ImageBackground>
                                 </View>
-                            </Pressable>
-                        )) : (
-                            <View><Text>Calculator</Text></View>
-                        )
+                            </TouchableOpacity>
+                        )) : (calculator.map(item => (
+                            <TouchableOpacity activeOpacity={0.5} key={item.path} onPress={()=>{navigation.navigate(item.path)}} style={styles.calculatorCon}>
+                                <View style={styles.calculatorPicCon}>
+                                    <Image style={styles.calculatorPic} source={item.pic} />
+                                </View>
+                                <View style={styles.calculatorNameCon}>
+                                    <Text style={styles.calculatorName}>{item.name}</Text>
+                                </View>
+                                <Icon name="right" color="#666666" size={18} />
+                            </TouchableOpacity>
+                        )))
                     }
                 </View>
             </ScrollView>

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import intl from 'react-intl-universal';
 import { Text, View, ScrollView, TextInput, Image, Animated, Easing } from 'react-native';
 import { Button } from '@rneui/themed';
 import { PageHeader, Select } from '../../components';
@@ -7,9 +8,6 @@ import { useLocale } from '../../common/localeProvider';
 import makeStyles from './styles';
 
 export default function () {
-    const { isDark, colors, theme } = useTheme();
-    const styles = makeStyles(colors, isDark);
-    const { intl } = useLocale();
     const [result, setResult] = useState(false);
     const opacity = useRef(new Animated.Value(0)).current;;
     const [err, setErr] = useState({});

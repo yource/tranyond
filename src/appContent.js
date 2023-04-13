@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomePage from "./pages/home"
 import LoginPage from "./pages/login/login"
 import ForgetPage from "./pages/login/forget"
+
 const Stack = createNativeStackNavigator();
 const MyTheme = {
     dark: true,
@@ -27,7 +28,6 @@ const App = () => {
                 backgroundColor="transparent"
                 barStyle="light-content"></StatusBar>
             <NavigationContainer theme={MyTheme}>
-
                 <Stack.Navigator initialRouteName="home"
                     screenOptions={{ headerShown: false }}>
                     <Stack.Screen name="home" component={HomePage} />
