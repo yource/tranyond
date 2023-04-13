@@ -1,11 +1,11 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import { StatusBar } from 'react-native';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomePage from "./pages/home"
 import LoginPage from "./pages/login/login"
 import ForgetPage from "./pages/login/forget"
+import bending1 from './pages/calculators/bending1';
 
 const Stack = createNativeStackNavigator();
 const MyTheme = {
@@ -22,20 +22,15 @@ const MyTheme = {
 };
 const App = () => {
     return (
-        <>
-            <StatusBar
-                translucent={true}
-                backgroundColor="transparent"
-                barStyle="light-content"></StatusBar>
-            <NavigationContainer theme={MyTheme}>
-                <Stack.Navigator initialRouteName="home"
-                    screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name="home" component={HomePage} />
-                    <Stack.Screen name="login" component={LoginPage} />
-                    <Stack.Screen name="forget" component={ForgetPage} />
-                </Stack.Navigator>
-            </NavigationContainer>
-        </>
+        <NavigationContainer theme={MyTheme}>
+            <Stack.Navigator initialRouteName="home"
+                screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="home" component={HomePage} />
+                <Stack.Screen name="login" component={LoginPage} />
+                <Stack.Screen name="forget" component={ForgetPage} />
+                <Stack.Screen name="bending1" component={bending1} />
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 }
 

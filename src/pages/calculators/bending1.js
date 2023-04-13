@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import intl from 'react-intl-universal';
 import { Text, View, ScrollView, TextInput, Image, Animated, Easing } from 'react-native';
-import { Button } from '@rneui/themed';
-import { Loading, Toast, PageHeader, Select } from '../../components';
-import { useTheme } from '../../common/themeProvider';
-import { useLocale } from '../../common/localeProvider';
-import makeStyles from './styles';
+import { Button, PickerView } from '@ant-design/react-native'
+import { PageHeader,Select } from '../../components';
+import styles from './styles';
 
 export default function () {
-	const { isDark, colors, theme } = useTheme();
-	const styles = makeStyles(colors, isDark);
-	const { intl } = useLocale();
 	const [result, setResult] = useState(false);
 	const opacity = useRef(new Animated.Value(0)).current;;
 	const [err, setErr] = useState({});
@@ -89,12 +84,12 @@ export default function () {
 	}
 
 	return (
-		<View style={theme.page}>
+		<View style={_global.pageContainer}>
 			<PageHeader title={intl.get("bendingForce")} />
-			<ScrollView style={styles.page}>
+			<ScrollView style={_global.page}>
 				<View style={styles.section}>
 
-					<View style={styles.row}>
+					{/* <View style={styles.row}>
 						<Text style={styles.label}>{intl.get('selectSteel')}</Text>
 						<View style={styles.right}>
 							<View style={styles.inputCon}>
@@ -113,39 +108,64 @@ export default function () {
 									}}
 								/>
 							</View>
-							<View style={[styles.errorCon, err.value1 ? { borderTopColor: colors.error } : {}]}>
+							<View style={[styles.errorCon, err.value1 ? { borderTopColor: _global.error } : {}]}>
 								<Text style={styles.error}>{err.value1 || ""}</Text>
 							</View>
 						</View>
+					</View> */}
+
+					<View style={[_global.inputRow, err.value1?_global.inputErr:null]}>
+						<View style={_global.inputRowMain}>
+							{
+								steel ? <Text style={_global.inputLable}>{intl.get('selectSteel')}</Text> : null
+							}
+							<Select style={_global.input}
+								value={steel}
+								placeholder={intl.get("selectSteel")}
+								options={[
+									{ value: 1, label: intl.get('mildSteel') },
+									{ value: 1.5, label: intl.get('stainlessSteel') },
+									{ value: 0.5, label: intl.get('aluminumBrass') },
+									{ value: 2, label: intl.get('crmoStell') },
+								]}
+								onSelect={(value) => {
+									setSteel(value);
+									setErr(Object.assign(err, { value1: false }))
+								}}
+							/>
+						</View>
+					</View>
+					<View style={_global.inputErrCon}>
+						<Text style={_global.inputErrText}>{err.value1 || ""}</Text>
 					</View>
 
-					<View style={styles.row}>
-						<Text style={styles.label}>{intl.get('bendingLength')}</Text>
-						<View style={styles.right}>
-							<View style={styles.inputCon}>
-								<TextInput style={styles.input}
-									keyboardType='numeric'
-									returnKeyType='done'
-									value={length}
-									placeholder={intl.get("pleaseEnter")}
-									onChangeText={(val) => {
-										setLength(val);
-										setErr(Object.assign(err, { value2: false }))
-									}}
-									placeholderTextColor={colors.grey3}
-								/>
-							</View>
-							<View style={[styles.errorCon, err.value2 ? { borderTopColor: colors.error } : {}]}>
-								<Text style={styles.error}>{err.value2 || ""}</Text>
-							</View>
+					<View style={[_global.inputRow, err.value2?_global.inputErr:null]}>
+						<View style={_global.inputRowMain}>
+							{
+								length ? <Text style={_global.inputLable}>{intl.get('bendingLength')}</Text> : null
+							}
+							<TextInput style={_global.input}
+								keyboardType='numeric'
+								returnKeyType='done'
+								value={length}
+								placeholder={intl.get("bendingLength")}
+								onChangeText={(val) => {
+									setLength(val);
+									setErr(Object.assign(err, { value2: false }))
+								}}
+								placeholderTextColor={_global.inputLabelColor}
+							/>
 						</View>
+					</View>
+					<View style={_global.inputErrCon}>
+						<Text style={_global.inputErrText}>{err.value2 || ""}</Text>
 					</View>
 
 					<View style={styles.row}>
 						<Text style={styles.label}>{intl.get('thickness')}</Text>
 						<View style={styles.right}>
 							<View style={styles.inputCon}>
-								<Select style={styles.input}
+								{/* <Select style={styles.input}
 									value={thickness}
 									placeholder={intl.get("pleaseSelect")}
 									options={[
@@ -163,7 +183,7 @@ export default function () {
 										setThickness(value);
 										setErr(Object.assign(err, { value3: false }))
 									}}
-								/>
+								/> */}
 							</View>
 							{
 								thickness == "custom" ? (
@@ -177,12 +197,12 @@ export default function () {
 												setThicknessCustom(val);
 												setErr(Object.assign(err, { value3: false }))
 											}}
-											placeholderTextColor={colors.grey3}
+											placeholderTextColor={_global.grey3}
 										/>
 									</View>
 								) : null
 							}
-							<View style={[styles.errorCon, err.value3 ? { borderTopColor: colors.error } : {}]}>
+							<View style={[styles.errorCon, err.value3 ? { borderTopColor: _global.error } : {}]}>
 								<Text style={styles.error}>{err.value3 || ""}</Text>
 							</View>
 						</View>
@@ -192,7 +212,7 @@ export default function () {
 						<Text style={styles.label}>{intl.get('V')}</Text>
 						<View style={styles.right}>
 							<View style={styles.inputCon}>
-								<Select style={styles.input}
+								{/* <Select style={styles.input}
 									value={v}
 									placeholder={intl.get("pleaseSelect")}
 									options={[
@@ -210,7 +230,7 @@ export default function () {
 										setV(value);
 										setErr(Object.assign(err, { value4: false }))
 									}}
-								/>
+								/> */}
 							</View>
 							{
 								v == "custom" ? (
@@ -224,23 +244,23 @@ export default function () {
 												setVCustom(val);
 												setErr(Object.assign(err, { value4: false }))
 											}}
-											placeholderTextColor={colors.grey3}
+											placeholderTextColor={_global.grey3}
 										/>
 									</View>
 								) : null
 							}
-							<View style={[styles.errorCon, err.value4 ? { borderTopColor: colors.error } : {}]}>
+							<View style={[styles.errorCon, err.value4 ? { borderTopColor: _global.error } : {}]}>
 								<Text style={styles.error}>{err.value4 || ""}</Text>
 							</View>
 						</View>
 					</View>
 
 					<View style={styles.picCon}>
-						<Image source={require('../../assets/images/bendingMain.png')} style={styles.pic} />
+						<Image source={require('../../assets/images/bending0.png')} style={styles.pic} />
 					</View>
 
-					<View style={styles.btnCon}>
-						<Button title={intl.get('calculate')} onPress={calculate} containerStyle={styles.btn} buttonStyle={styles.btn} />
+					<View style={_global.btnCon}>
+						<Button type='primary' onPress={calculate} style={_global.btn}>{intl.get('calculate')}</Button>
 					</View>
 				</View>
 

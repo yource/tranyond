@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, Animated, Modal, Easing, Pressable } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/Feather';
 /**
  * 
  * @param {*} props 
@@ -21,7 +20,7 @@ export default function (props) {
     const [dropdownStyle, setDropdownStyle] = useState(null);
     const optionStyle = {
         height: 34,
-        borderBottomColor: colors.grey8,
+        borderBottomColor: _global.grey8,
         borderBottomWidth: StyleSheet.hairlineWidth,
     }
     const show = () => {
@@ -36,7 +35,7 @@ export default function (props) {
                 position: 'absolute',
                 left: position.x,
                 right: _global.width - position.x,
-                borderColor: colors.grey6,
+                borderColor: _global.grey6,
                 borderWidth: 1,
                 width: position.width,
                 overflow: "hidden",
@@ -97,13 +96,12 @@ export default function (props) {
     return (
         <>
             <Pressable style={[props.style, {
-                flexDirection: 'row', alignItems: 'center', paddingRight: 5
+                flexDirection: 'row', alignItems: 'center',
             }]} onPress={show} ref={element}>
                 {label ?
-                    <Text style={[{fontSize: 16, textAlign: 'right', paddingRight: 8}, props.textStyle, { flex: 1 }]}>{label}</Text> :
-                    <Text style={[{fontSize: 16, textAlign: 'right', paddingRight: 8}, props.textStyle, { color: colors.grey3, flex: 1 }]}>{props.placeholder || "please select..."}</Text>
+                    <Text style={[{fontSize: 16, color: _global.inputValueColor, flex: 1}, props.textStyle]}>{label}</Text> :
+                    <Text style={[{fontSize: 16, color: _global.inputLabelColor, flex: 1}, props.textStyle]}>{props.placeholder || "please select..."}</Text>
                 }
-                <Icon name="chevron-down" color={colors.grey4} size={18} />
             </Pressable>
             {
                 visible ?

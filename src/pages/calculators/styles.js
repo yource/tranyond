@@ -19,7 +19,6 @@ export default StyleSheet.create({
   section: {
     marginTop: 12,
     padding: 20,
-    backgroundColor: _global.white
   },
   row: {
     flexDirection: 'row',
@@ -38,17 +37,6 @@ export default StyleSheet.create({
   inputCon: {
     flexDirection: 'row',
     alignItems: 'center'
-  },
-  input: {
-    height: 30,
-    fontSize: 16,
-    flex: 1,
-    textAlign: 'right',
-    paddingTop: 0,
-    paddingLeft: 0,
-    paddingBottom: 0,
-    paddingRight: 30,
-    color: _global.black
   },
   unit: {
     color: _global.grey0,
@@ -185,5 +173,7 @@ export default StyleSheet.create({
   orderSmallPic: {
     width: width4 - 20,
     height: width4 - 20,
-  }
+  },
+
+  
 })
