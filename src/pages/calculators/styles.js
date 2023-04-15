@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import _global from '../../constant/global';
 
 const width2 = parseInt(_global.width * 0.5);
 const width4 = parseInt(_global.width * 0.25);
@@ -71,24 +72,31 @@ export default StyleSheet.create({
     lineHeight: 40
   },
   resultCon: {
-    paddingTop: 25,
-    paddingBottom: 25,
-    marginTop: 12,
-    backgroundColor: _global.white,
-    alignItems: 'center'
+    paddingTop: 10,
+    paddingLeft: 25,
+    paddingRight: 25,
+    paddingBottom: 25
+  },
+  result:{
+    borderRadius: 12,
+    backgroundColor: _global.pageBackgroundColorDark,
+    padding: 20
   },
   resultRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     height: 28
+  },
+  resultItem:{
+    fontSize: 18,
+    fontWeight: 500,
+    color: _global.fontColorPrimary,
+    paddingLeft: 5,
+    paddingRight:5
   },
   resultNormal: {
     color: _global.grey2
-  },
-  result: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: _global.primary
   },
   subResult: {
     fontSize: 16,

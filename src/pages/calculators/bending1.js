@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import intl from 'react-intl-universal';
 import { Text, View, ScrollView, TextInput, Image, Animated, Easing } from 'react-native';
-import { Button, PickerView } from '@ant-design/react-native'
-import { PageHeader,Select } from '../../components';
+import { Button, Modal } from '@ant-design/react-native'
+import { PageHeader, Select } from '../../components';
 import styles from './styles';
 
 export default function () {
@@ -15,7 +15,6 @@ export default function () {
 	const [thicknessCustom, setThicknessCustom] = useState("");
 	const [v, setV] = useState("");
 	const [vCustom, setVCustom] = useState("");
-
 	const calculate = () => {
 		var timer = 0;
 		if (result) {
@@ -88,33 +87,7 @@ export default function () {
 			<PageHeader title={intl.get("bendingForce")} />
 			<ScrollView style={_global.page}>
 				<View style={styles.section}>
-
-					{/* <View style={styles.row}>
-						<Text style={styles.label}>{intl.get('selectSteel')}</Text>
-						<View style={styles.right}>
-							<View style={styles.inputCon}>
-								<Select style={styles.input}
-									value={steel}
-									placeholder={intl.get("pleaseSelect")}
-									options={[
-										{ value: 1, label: intl.get('mildSteel') },
-										{ value: 1.5, label: intl.get('stainlessSteel') },
-										{ value: 0.5, label: intl.get('aluminumBrass') },
-										{ value: 2, label: intl.get('crmoStell') },
-									]}
-									onSelect={(value) => {
-										setSteel(value);
-										setErr(Object.assign(err, { value1: false }))
-									}}
-								/>
-							</View>
-							<View style={[styles.errorCon, err.value1 ? { borderTopColor: _global.error } : {}]}>
-								<Text style={styles.error}>{err.value1 || ""}</Text>
-							</View>
-						</View>
-					</View> */}
-
-					<View style={[_global.inputRow, err.value1?_global.inputErr:null]}>
+					<View style={[_global.inputRow, err.value1 ? _global.inputErr : null]}>
 						<View style={_global.inputRowMain}>
 							{
 								steel ? <Text style={_global.inputLable}>{intl.get('selectSteel')}</Text> : null
@@ -139,7 +112,7 @@ export default function () {
 						<Text style={_global.inputErrText}>{err.value1 || ""}</Text>
 					</View>
 
-					<View style={[_global.inputRow, err.value2?_global.inputErr:null]}>
+					<View style={[_global.inputRow, err.value2 ? _global.inputErr : null]}>
 						<View style={_global.inputRowMain}>
 							{
 								length ? <Text style={_global.inputLable}>{intl.get('bendingLength')}</Text> : null
@@ -161,99 +134,101 @@ export default function () {
 						<Text style={_global.inputErrText}>{err.value2 || ""}</Text>
 					</View>
 
-					<View style={styles.row}>
-						<Text style={styles.label}>{intl.get('thickness')}</Text>
-						<View style={styles.right}>
-							<View style={styles.inputCon}>
-								{/* <Select style={styles.input}
-									value={thickness}
-									placeholder={intl.get("pleaseSelect")}
-									options={[
-										{ value: '0.5', label: '0.5' },
-										{ value: '1', label: '1' },
-										{ value: '2', label: '2' },
-										{ value: '3', label: '3' },
-										{ value: '4', label: '4' },
-										{ value: '5', label: '5' },
-										{ value: '6', label: '6' },
-										{ value: '8', label: '8' },
-										{ value: 'custom', label: intl.get('custom') },
-									]}
-									onSelect={(value) => {
-										setThickness(value);
-										setErr(Object.assign(err, { value3: false }))
-									}}
-								/> */}
-							</View>
+					<View style={[_global.inputRow, err.value3 ? _global.inputErr : null]}>
+						<View style={_global.inputRowMain}>
 							{
-								thickness == "custom" ? (
-									<View style={styles.inputCon}>
-										<TextInput style={styles.input}
-											keyboardType='numeric'
-											returnKeyType='done'
-											value={thicknessCustom}
-											placeholder={intl.get("pleaseEnter")}
-											onChangeText={(val) => {
-												setThicknessCustom(val);
-												setErr(Object.assign(err, { value3: false }))
-											}}
-											placeholderTextColor={_global.grey3}
-										/>
-									</View>
-								) : null
+								thickness ? <Text style={_global.inputLable}>{intl.get('thickness')}</Text> : null
 							}
-							<View style={[styles.errorCon, err.value3 ? { borderTopColor: _global.error } : {}]}>
-								<Text style={styles.error}>{err.value3 || ""}</Text>
-							</View>
+							<Select style={styles.input}
+								value={thickness}
+								placeholder={intl.get("thickness")}
+								options={[
+									{ value: '0.5', label: '0.5' },
+									{ value: '1', label: '1' },
+									{ value: '2', label: '2' },
+									{ value: '3', label: '3' },
+									{ value: '4', label: '4' },
+									{ value: '5', label: '5' },
+									{ value: '6', label: '6' },
+									{ value: '8', label: '8' },
+									// { value: 'custom', label: intl.get('custom') },
+								]}
+								onSelect={(value) => {
+									setThickness(value);
+									setErr(Object.assign(err, { value3: false }))
+								}}
+							/>
 						</View>
+					</View>
+					<View style={_global.inputErrCon}>
+						<Text style={_global.inputErrText}>{err.value3 || ""}</Text>
 					</View>
 
-					<View style={styles.row}>
-						<Text style={styles.label}>{intl.get('V')}</Text>
-						<View style={styles.right}>
+					{
+						thickness == "custom" ? (
 							<View style={styles.inputCon}>
-								{/* <Select style={styles.input}
-									value={v}
-									placeholder={intl.get("pleaseSelect")}
-									options={[
-										{ value: '4', label: '4' },
-										{ value: '6', label: '6' },
-										{ value: '8', label: '8' },
-										{ value: '10', label: '10' },
-										{ value: '12', label: '12' },
-										{ value: '14', label: '14' },
-										{ value: '16', label: '16' },
-										{ value: '20', label: '20' },
-										{ value: 'custom', label: intl.get('custom') },
-									]}
-									onSelect={(value) => {
-										setV(value);
-										setErr(Object.assign(err, { value4: false }))
+								<TextInput style={styles.input}
+									keyboardType='numeric'
+									returnKeyType='done'
+									value={thicknessCustom}
+									placeholder={intl.get("pleaseEnter")}
+									onChangeText={(val) => {
+										setThicknessCustom(val);
+										setErr(Object.assign(err, { value3: false }))
 									}}
-								/> */}
+									placeholderTextColor={_global.grey3}
+								/>
 							</View>
+						) : null
+					}
+
+					<View style={[_global.inputRow, err.value4 ? _global.inputErr : null]}>
+						<View style={_global.inputRowMain}>
 							{
-								v == "custom" ? (
-									<View style={styles.inputCon}>
-										<TextInput style={styles.input}
-											keyboardType='numeric'
-											returnKeyType='done'
-											value={vCustom}
-											placeholder={intl.get("pleaseEnter")}
-											onChangeText={(val) => {
-												setVCustom(val);
-												setErr(Object.assign(err, { value4: false }))
-											}}
-											placeholderTextColor={_global.grey3}
-										/>
-									</View>
-								) : null
+								v ? <Text style={_global.inputLable}>{intl.get('V')}</Text> : null
 							}
-							<View style={[styles.errorCon, err.value4 ? { borderTopColor: _global.error } : {}]}>
-								<Text style={styles.error}>{err.value4 || ""}</Text>
-							</View>
+							<Select style={styles.input}
+								value={v}
+								placeholder={intl.get("V")}
+								options={[
+									{ value: '4', label: '4' },
+									{ value: '6', label: '6' },
+									{ value: '8', label: '8' },
+									{ value: '10', label: '10' },
+									{ value: '12', label: '12' },
+									{ value: '14', label: '14' },
+									{ value: '16', label: '16' },
+									{ value: '20', label: '20' },
+									// { value: 'custom', label: intl.get('custom') },
+								]}
+								onSelect={(value) => {
+									setV(value);
+									setErr(Object.assign(err, { value4: false }))
+								}}
+							/>
 						</View>
 					</View>
+					<View style={_global.inputErrCon}>
+						<Text style={_global.inputErrText}>{err.value4 || ""}</Text>
+					</View>
+
+					{
+						v == "custom" ? (
+							<View style={styles.inputCon}>
+								<TextInput style={styles.input}
+									keyboardType='numeric'
+									returnKeyType='done'
+									value={vCustom}
+									placeholder={intl.get("pleaseEnter")}
+									onChangeText={(val) => {
+										setVCustom(val);
+										setErr(Object.assign(err, { value4: false }))
+									}}
+									placeholderTextColor={_global.grey3}
+								/>
+							</View>
+						) : null
+					}
 
 					<View style={styles.picCon}>
 						<Image source={require('../../assets/images/bending0.png')} style={styles.pic} />
@@ -267,9 +242,11 @@ export default function () {
 				{
 					result !== false ? (
 						<Animated.View style={[styles.resultCon, { opacity }]}>
-							<View style={styles.resultRow}>
-								<Text style={styles.result}>F = {result.kn}KN</Text>
-								<Text style={styles.subResult}>({result.ton}Ton)</Text>
+							<View style={styles.result}>
+								<View style={styles.resultRow}>
+									<Text style={styles.resultItem}>F = {result.kn}KN</Text>
+									<Text style={styles.resultItem}>({result.ton}Ton)</Text>
+								</View>
 							</View>
 						</Animated.View>
 					) : null

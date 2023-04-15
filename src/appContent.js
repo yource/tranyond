@@ -12,6 +12,7 @@ import LoginPage from "./pages/login/login"
 import ForgetPage from "./pages/login/forget"
 import bending1 from './pages/calculators/bending1';
 import product from './pages/product/index.js';
+import productMulti from './pages/product/multi';
 
 const Stack = createNativeStackNavigator();
 const MyTheme = {
@@ -49,6 +50,7 @@ const AppContent = () => {
                 <Stack.Screen name="forget" component={ForgetPage} />
                 <Stack.Screen name="bending1" component={bending1} />
                 <Stack.Screen name="product" component={product} />
+                <Stack.Screen name="productMulti" component={productMulti} />
             </Stack.Navigator>
         </NavigationContainer>
     );

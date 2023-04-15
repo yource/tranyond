@@ -355,12 +355,83 @@ var prodoucts = [
     }, {
         id: "3",
         name: "Powerful Tools",
-        pic: "https://img1.baidu.com/it/u=2002225100,988332601&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=261",
+        pic: "https://img1.wsimg.com/isteam/ip/8adb8788-1ab0-4ee0-85df-8b44a5701e35/DSC00289.JPG/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:1800,cg:true",
         desc: "文案3  商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述",
         path: "product",
         detail: {
             type: "shop",
-            sections: []
+            sections: [
+                {
+                    type: "image",
+                    style: { width: 300, height: 240 },
+                    content: "https://img1.wsimg.com/isteam/ip/8adb8788-1ab0-4ee0-85df-8b44a5701e35/%E4%BA%A7%E5%93%818.png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:900,cg:true"
+                },
+                {
+                    type: "centerTitle",
+                    content: "Magnetic squaring arm for press brake",
+                },
+                {
+                    type: "centerSubTitle",
+                    content: "The magnetic square arm allows you to square the sheet and also obtain the desired angle. Ideal for small parts.",
+                },
+                {
+                    type: "button",
+                    content: "BUY IT",
+                    color: "primary",
+                    link:"https://tranyond.shop/products/magnetic-squaring-arm-for-press-brake"
+                },
+                {type: "gap"},
+
+                {
+                    type: "image",
+                    style: { width: 300, height: 240 },
+                    content: "https://img1.wsimg.com/isteam/ip/8adb8788-1ab0-4ee0-85df-8b44a5701e35/%E6%8A%A0%E5%9B%BE1.png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:1080,cg:true"
+                },
+                {
+                    type: "centerTitle",
+                    content: "modularization markfree press brake die V-bending markless mold",
+                },
+                {
+                    type: "centerSubTitle",
+                    content: "Designed for markfree bending.",
+                },
+                {
+                    type: "centerSubTitle",
+                    content: "Just put it on the V mold(20-32mm)",
+                },
+                {
+                    type: "button",
+                    content: "BUY IT",
+                    color: "primary",
+                    link:"https://tranyond.shop/products/magnetic-squaring-arm-for-press-brake"
+                },
+                {type: "gap"},
+
+                {
+                    type: "image",
+                    style: { width: 300, height: 240 },
+                    content: "https://img1.wsimg.com/isteam/ip/8adb8788-1ab0-4ee0-85df-8b44a5701e35/02b315222cf69859df8b90799a5aa3c.jpg/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:900,cg:true"
+                },
+                {
+                    type: "centerTitle",
+                    content: "Magnetic hand lifter for metal parts",
+                },
+                {
+                    type: "centerSubTitle",
+                    content: "Maxium Lifting force：30KG",
+                },
+                {
+                    type: "centerSubTitle",
+                    content: "High temperature resistance",
+                },
+                {
+                    type: "button",
+                    content: "BUY IT",
+                    color: "primary",
+                    link:"https://tranyond.shop/products/magnetic-squaring-arm-for-press-brake"
+                },
+                {type: "gap"},
+            ]
         }
     }
 ]
