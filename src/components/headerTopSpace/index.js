@@ -5,8 +5,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 function HeaderTopSpace() {
     var insetTop = 40;
-    const insets = useSafeAreaInsets();
     if(Platform.OS=="ios"){
+        const insets = useSafeAreaInsets();
         insetTop = insets.top;
     }else{
         insetTop = StatusBar.currentHeight;

@@ -1,11 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import 'react-native-gesture-handler';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useSelector, useDispatch } from 'react-redux';
+import defaultProducts from './constant/products';
+import storage from './utils/storage';
+import { setProducts } from './store/products';
+
 import HomePage from "./pages/home"
 import LoginPage from "./pages/login/login"
 import ForgetPage from "./pages/login/forget"
 import bending1 from './pages/calculators/bending1';
+import product from './pages/product/index.js';
 
 const Stack = createNativeStackNavigator();
 const MyTheme = {
@@ -20,7 +26,20 @@ const MyTheme = {
         notification: 'rgb(255, 69, 58)',
     },
 };
-const App = () => {
+const AppContent = () => {
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        // 展示最新的产品信息 或使用默认数据
+        storage.getItem("products").then(data=>{
+            if(data){
+                dispatch(setProducts(JSON.parse(data)))
+            }else{
+                dispatch(setProducts(defaultProducts))
+            }
+        })
+    },[])
+
     return (
         <NavigationContainer theme={MyTheme}>
             <Stack.Navigator initialRouteName="home"
@@ -29,9 +48,10 @@ const App = () => {
                 <Stack.Screen name="login" component={LoginPage} />
                 <Stack.Screen name="forget" component={ForgetPage} />
                 <Stack.Screen name="bending1" component={bending1} />
+                <Stack.Screen name="product" component={product} />
             </Stack.Navigator>
         </NavigationContainer>
     );
 }
 
-export default App;
+export default AppContent;

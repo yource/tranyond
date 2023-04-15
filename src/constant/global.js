@@ -1,23 +1,26 @@
-import { Dimensions, StyleSheet} from 'react-native'
-const {width,height} = Dimensions.get("window");
+import { Dimensions, StyleSheet } from 'react-native'
+const { width, height } = Dimensions.get("window");
 
-_global =  {
+_global = {
     width: width,
     height: height,
     fontSize: 14,
-    primary: "#4373f9",
-    primaryTap:"#638af6",
+    primary: "#3969cc",
+    primaryTap: "#638af6",
     fontColor: '#f2f4f5',
     fontColor1: '#f7f9fb',
+    fontColor2: "#e0e0e0",
+    fontColor3: "#a7a7a7",
     fontColorGrey: '#8a8c8d',
     pageBackgroundColor: '#18191a',
     pageBackgroundColorDark: '#000000',
     inputBackgroundColor: "#222325",
     inputLabelColor: "#86888a",
-    inputValueColor:"#f1f3f5",
-    buttonDisableColor:"#959a9d",
-    buttonBackgroundColor:"#3167fd",
-    buttonDisableBackgroundColor:"#202e5b",
+    inputValueColor: "#f1f3f5",
+    buttonDisableColor: "#959a9d",
+    buttonBackgroundColor: "#3167fd", //蓝色按钮
+    buttonBackgroundColorGrey: "#383b3f", //灰色按钮
+    buttonDisableBackgroundColor: "#202e5b",
 
     theme: "#1fbfb4",
     themeDark: "#17a79d",
@@ -35,7 +38,7 @@ _global =  {
     grey6: '#212223',
     grey7: '#101011',
     grey8: 'rgba(220,220,220,0.08)',
-    active: '#1a1a1b', 
+    active: '#1a1a1b',
     greyOutline: '#bbb',
     searchBg: '#303337',
     success: '#398df6',
@@ -47,18 +50,18 @@ _global =  {
 }
 
 const globalStyle = StyleSheet.create({
-    pageContainer:{
+    pageContainer: {
         flex: 1
     },
     page: {
         flex: 1
     },
     btnCon: {
-        alignItems:'center',
-        justifyContent:'center',
+        alignItems: 'center',
+        justifyContent: 'center',
         paddingTop: 24,
     },
-    btn:{
+    btn: {
         width: "88%"
     },
     inputRow: {
@@ -66,40 +69,40 @@ const globalStyle = StyleSheet.create({
         borderColor: _global.inputBackgroundColor,
         borderWidth: 1,
         height: 48,
-        flexDirection:'row',
+        flexDirection: 'row',
         paddingRight: 12,
         borderRadius: 8,
         paddingLeft: 12
-      },
-      inputRowMain:{
+    },
+    inputRowMain: {
         flex: 1,
         paddingTop: 2,
         paddingBottom: 4,
         justifyContent: 'center'
-      },
-      inputLable: {
+    },
+    inputLable: {
         fontSize: 12,
         fontWeight: 500,
         color: _global.inputLabelColor
-      },
-      input:{
+    },
+    input: {
         lineHeight: 22,
         fontSize: 16,
         color: _global.inputValueColor
-      },
-      inputErr: {
+    },
+    inputErr: {
         borderColor: _global.error
-      },
-      inputErrCon: {
+    },
+    inputErrCon: {
         height: 16,
-      },
-      inputErrText: {
+    },
+    inputErrText: {
         fontSize: 12,
         color: _global.error,
         paddingLeft: 5
-      },
+    },
 })
 
-_global = Object.assign(_global,globalStyle)
+_global = Object.assign(_global, globalStyle)
 
 export default _global;

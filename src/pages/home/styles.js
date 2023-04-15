@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native';
-import _global from '../../constant/global';
 const imageSize = _global.width - 72;
 const styles = StyleSheet.create({
     page: {
@@ -39,13 +38,18 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     productCon: {
-        width: imageSize, height: imageSize, marginBottom: 32, borderRadius: 10, overflow: 'hidden'
+        width: imageSize, 
+        height: imageSize, 
+        marginBottom: 32, 
+        borderRadius: 10, 
+        overflow: 'hidden',
+        backgroundColor: "#000000",
+        justifyContent: 'flex-end'
     },
     productImg: {
-        width: imageSize, height: imageSize, justifyContent: 'flex-end'
-    },
-    imgBg: {
-        backgroundColor: "#000000"
+        width: imageSize, 
+        height: imageSize, 
+        position: 'absolute'
     },
     productName: {
         paddingLeft: 14,
@@ -65,9 +69,11 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(0,0,0,0.4)",
     },
     calculatorCon: {
-        width: imageSize, height: 72, marginBottom: 26,
+        width: _global.width - 50, 
+        height: 72, 
+        marginBottom: 26,
         borderRadius: 10, overflow: 'hidden', flexDirection: 'row',
-        backgroundColor: "#333333",
+        backgroundColor: "#222222",
         paddingLeft: 6,
         paddingRight: 12,
         alignItems:'center'
