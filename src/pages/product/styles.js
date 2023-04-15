@@ -176,6 +176,14 @@ const styles = StyleSheet.create({
         paddingBottom: 15,
         maxWidth: "100%"
     },
+    dialogPdfCon:{
+        flex: 1
+    },
+    dialogPdf:{
+        height: 520,
+        maxHeight: _global.height-240,
+        backgroundColor:"#333"
+    },
     dialogContentTitle: {
         fontSize: 16,
         fontWeight: 500,

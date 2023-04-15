@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import FastImage from 'react-native-fast-image'
 import { PageHeader, HeaderTopSpace } from '../../components'
 import Video from 'react-native-video';
+import Pdf from 'react-native-pdf';
 
 function ProductPage({ navigation }) {
     const dispatch = useDispatch();
@@ -59,7 +60,9 @@ function ProductPage({ navigation }) {
                                         {
                                             section.content.map((md, idx) => (
                                                 <View key={idx}>
-                                                    <Text style={styles.modelDesc}>{md.desc}</Text>
+                                                    {
+                                                        md.desc ? <Text style={styles.modelDesc}>{md.desc}</Text> : null
+                                                    }
                                                     <Pressable style={[styles.modelItem, activeModel == idx ? styles.modelActive : null]} onPress={() => { setActiveModel(idx) }}>
                                                         <Text style={styles.modelName}>{md.name}</Text>
                                                         <Text style={styles.modelPrice}>{md.price}</Text>
@@ -145,6 +148,15 @@ function ProductPage({ navigation }) {
                                                                                 style={[styles.image, sect.style]}
                                                                                 source={{ uri: sect.content }}
                                                                                 resizeMode={FastImage.resizeMode.contain} ></FastImage>
+                                                                        </View>
+                                                                    ) : null
+                                                                }
+                                                                {
+                                                                    sect.type == "pdf" ? (
+                                                                        <View style={styles.dialogPdfCon}>
+                                                                            <Pdf
+                                                                                source={{uri:sect.content}}
+                                                                                style={styles.dialogPdf} />
                                                                         </View>
                                                                     ) : null
                                                                 }

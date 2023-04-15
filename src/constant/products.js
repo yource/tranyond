@@ -65,10 +65,10 @@ var prodoucts = [
                 },
                 {
                     type: "button",
-                    content: "Technical Parameter",
+                    content: "Technical Specifications",
                     color: "grey",
                     dialogContent: { // 打开弹框
-                        title: "Technical Parameter",
+                        title: "Technical Specifications",
                         sections: [
                             {
                                 type: "attrs",
@@ -129,11 +129,6 @@ var prodoucts = [
                     type: "image",
                     style: { width: 300, height: 240 },
                     content: "https://img1.wsimg.com/isteam/ip/8adb8788-1ab0-4ee0-85df-8b44a5701e35/%E6%9C%AA%E6%A0%87%E9%A2%98-9.jpg/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:1023,cg:true"
-                },
-                {
-                    type: "centerTitle",
-                    content: "Reliability & Productivity",
-                    style: {lineHeight: 40}
                 },
                 {
                     type: "text",
@@ -199,17 +194,167 @@ var prodoucts = [
         }
     }, {
         id: "2",
-        name: "Handheld Laser Welding",
+        name: "Laser Welding",
         desc: "文案2 商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述",
         pic: "https://img1.wsimg.com/isteam/ip/8adb8788-1ab0-4ee0-85df-8b44a5701e35/%E7%84%8A%E6%8E%A5%E5%A4%B4-1%20(1).webp/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:984,h:984",
         path: "product",
         detail: {
             type: "product",
-            sections: []
+            sections: [
+                {
+                    type: "image",
+                    style: { width: 300, height: 240 },
+                    content: "https://img1.wsimg.com/isteam/ip/8adb8788-1ab0-4ee0-85df-8b44a5701e35/1-2-2%20-%20%E5%89%AF%E6%9C%AC.png/:/cr=t:0%25,l:0%25,w:100%25,h:100%25/rs=w:800,cg:true"
+                },
+                {
+                    type: "centerTitle",
+                    content: "Handheld Laser Welding",
+                },
+                {
+                    type: "centerSubTitle",
+                    content: "Suitable For Thin Metal",
+                },
+                {
+                    type: "model",
+                    content: [
+                        {
+                            name: "CY-1000",
+                            price: "$12000",
+                            desc: "",
+                            attrs: [
+                                {
+                                    name: "Laser Power", value: "1000W",
+                                    nameStyle: {}, valueStyle: {}
+                                },
+                                { name: "Welding Thickness", value: "3mm" },
+                            ],
+                        },
+                        {
+                            name: "CY-1500",
+                            price: "$16000",
+                            desc: "",
+                            attrs: [
+                                { name: "Laser Power", value: "1500W" },
+                                { name: "Welding Thickness", value: "4mm" },
+                            ],
+                        },
+                        {
+                            name: "CY-2000",
+                            price: "$20000",
+                            desc: "",
+                            attrs: [
+                                { name: "Laser Power", value: "2000W" },
+                                { name: "Welding Thickness", value: "5mm" },
+                            ],
+                        }
+                    ]
+                },
+
+                {
+                    type: "button",
+                    content: "Technical Specifications",
+                    color: "grey",
+                    dialogContent: { // 打开弹框
+                        title: "Technical Specifications",
+                        sections: [
+                            {
+                                type: "attrs",
+                                models: ["CY-1000","CY-1500","CY-2000"],
+                                attrs: [
+                                    {
+                                        name: "Laser power",
+                                        values: ["1000W","1500W","2000W"]
+                                    },
+                                    {
+                                        name: "Laser wavelength",
+                                        values: ["1070nm","1070nm","1070nm"]
+                                    },
+                                    {
+                                        name: "Fiber core diameter",
+                                        values: ['50μm','50μm','50μm']
+                                    },
+                                    {
+                                        name: "Maximum power consumption",
+                                        values: ['5KW','8KW','10KW']
+                                    },
+                                    {
+                                        name: "Cooling mode",
+                                        values: ['water-cooling','water-cooling','water-cooling']
+                                    },
+                                    {
+                                        name: "Aiming and positioning",
+                                        values: ['Red light indication','Red light indication','Red light indication']
+                                    },
+                                    {
+                                        name: "Welding speed range",
+                                        values: ['0-30mm/s','0-40mm/s','0-50mm/s']
+                                    },
+                                    {
+                                        name: "Wire feed diameter",
+                                        values: ['0.8-1.6mm','0.8-1.6mm','0.8-1.6mm']
+                                    },
+                                    {
+                                        name: "Main Motro",
+                                        values: ['2KW','3KW','5.5KW']
+                                    },
+                                    {
+                                        name: "Overall dimension",
+                                        values: ['1300*650*1250mm','1300*650*1250mm','1300*650*1250mm']
+                                    },
+                                ]
+                            },
+                        ]
+                    }
+                },
+
+                {type: "gap"},
+                {
+                    type: "image",
+                    style: { width: 300, height: 240 },
+                    content: "https://img1.wsimg.com/isteam/ip/8adb8788-1ab0-4ee0-85df-8b44a5701e35/%E6%9C%AA%E6%A0%87%E9%A2%98-4.jpg/:/cr=t:12.41%25,l:0%25,w:100%25,h:75.19%25/rs=w:400,h:301,cg:true/qt=q:30"
+                },
+                {
+                    type: "text",
+                    style: {paddingLeft: 12,paddingTop: 10, paddingBottom: 15},
+                    content: "Hand-held laser welding machines can be widely used in complex and irregular welding processes in cabinets, kitchens, stairs, elevators, racks, ovens, stainless steel door and window guardrails, power distribution boxes, stainless steel homes and other industries."
+                },
+
+                {
+                    type: "button",
+                    content: "User Manual",
+                    color: "grey",
+                    dialogContent: { // 打开弹框
+                        title: "How to use it?",
+                        sections: [
+                            {
+                                type: "pdf",
+                                content: "https://img1.wsimg.com/blobby/go/8adb8788-1ab0-4ee0-85df-8b44a5701e35/downloads/tranyond-laserwelding.pdf"
+                            }
+                        ]
+                    }
+                },
+
+                {type: "gap"},
+                {
+                    type: "centerTitle",
+                    content: "Punches & Dies"
+                },
+                {
+                    type: "text",
+                    style: {paddingLeft: 12,paddingTop: 10, paddingBottom: 15},
+                    content: "Press brake punches and dies will be one of the most important topics we discuss before you place the order. Any bending shape will be completed by a suitable set of punch and die. We can provide appropriate toolings according to different bending requirements of customers. "
+                },
+                {
+                    type: "button",
+                    content: "BUY IT",
+                    color: "primary",
+                    link:"https://tranyond.shop/products/magnetic-squaring-arm-for-press-brake"
+                },
+            ]
         }
     }, {
         id: "3",
-        name: "Powerful tools",
+        name: "Powerful Tools",
         pic: "https://img1.baidu.com/it/u=2002225100,988332601&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=261",
         desc: "文案3  商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述商品描述",
         path: "product",
