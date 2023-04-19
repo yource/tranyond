@@ -11,6 +11,11 @@ import HomePage from "./pages/home"
 import LoginPage from "./pages/login/login"
 import ForgetPage from "./pages/login/forget"
 import bending1 from './pages/calculators/bending1';
+import bending2 from './pages/calculators/bending2';
+import bending3 from './pages/calculators/bending3';
+import bending4 from './pages/calculators/bending4';
+import bending5 from './pages/calculators/bending5';
+import bending6 from './pages/calculators/bending6';
 import product from './pages/product/index.js';
 import productMulti from './pages/product/multi';
 
@@ -49,6 +54,11 @@ const AppContent = () => {
                 <Stack.Screen name="login" component={LoginPage} />
                 <Stack.Screen name="forget" component={ForgetPage} />
                 <Stack.Screen name="bending1" component={bending1} />
+                <Stack.Screen name="bending2" component={bending2} />
+                <Stack.Screen name="bending3" component={bending3} />
+                <Stack.Screen name="bending4" component={bending4} />
+                <Stack.Screen name="bending5" component={bending5} />
+                <Stack.Screen name="bending6" component={bending6} />
                 <Stack.Screen name="product" component={product} />
                 <Stack.Screen name="productMulti" component={productMulti} />
             </Stack.Navigator>

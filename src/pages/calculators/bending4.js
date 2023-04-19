@@ -1,11 +1,9 @@
 import React, { useState, useRef } from 'react';
-import intl from 'react-intl-universal';
 import { Text, View, ScrollView, TextInput, Image, Animated, Easing } from 'react-native';
-import { Button } from '@rneui/themed';
+import intl from 'react-intl-universal';
+import { Button, Modal, Toast } from '@ant-design/react-native'
 import { PageHeader, Select } from '../../components';
-import { useTheme } from '../../common/themeProvider';
-import { useLocale } from '../../common/localeProvider';
-import makeStyles from './styles';
+import styles from './styles';
 
 export default function () {
     const [result, setResult] = useState(false);
@@ -54,87 +52,98 @@ export default function () {
     }
 
     return (
-        <View style={theme.page}>
+        <View style={_global.pageContainer}>
             <PageHeader title={intl.get("bendingArc1")} />
-            <ScrollView style={styles.page}>
+            <ScrollView style={_global.page}>
                 <View style={styles.section}>
 
-                    <View style={styles.row}>
-                        <Text style={styles.label}>{intl.get('overallAngle')}</Text>
-                        <View style={styles.right}>
-                            <View style={styles.inputCon}>
-                                <TextInput style={styles.input} keyboardType='numeric' returnKeyType='done'
-                                    placeholder={intl.get("pleaseEnter")} placeholderTextColor={colors.grey3}
-                                    value={o} 
-                                    onChangeText={(val) => {
-                                        setO(val);
-                                        setErr(Object.assign(err, { value2: false }))
-                                    }}
-                                />
-                            </View>
-                            <View style={[styles.errorCon, err.value1 ? { borderTopColor: colors.error } : {}]}>
-                                <Text style={styles.error}>{err.value1 || ""}</Text>
-                            </View>
-                        </View>
-                    </View>
+                    <View style={[_global.inputRow, err.value1 ? _global.inputErr : null]}>
+						<View style={_global.inputRowMain}>
+							{
+								o ? <Text style={_global.inputLable}>{intl.get('overallAngle')}</Text> : null
+							}
+							<TextInput style={_global.input}
+								keyboardType='numeric'
+								returnKeyType='done'
+								value={o}
+								placeholder={intl.get("overallAngle")}
+								onChangeText={(val) => {
+									setO(val);
+									setErr(Object.assign(err, { value1: false }))
+								}}
+								placeholderTextColor={_global.inputLabelColor}
+							/>
+						</View>
+					</View>
+					<View style={_global.inputErrCon}>
+						<Text style={_global.inputErrText}>{err.value1 || ""}</Text>
+					</View>
 
-                    <View style={styles.row}>
-                        <Text style={styles.label}>{intl.get('numberOfBends')}</Text>
-                        <View style={styles.right}>
-                            <View style={styles.inputCon}>
-                                <TextInput style={styles.input} keyboardType='numeric' returnKeyType='done'
-                                    placeholder={intl.get("pleaseEnter")} placeholderTextColor={colors.grey3}
-                                    value={n} 
-                                    onChangeText={(val) => {
-                                        setN(val);
-                                        setErr(Object.assign(err, { value2: false }))
-                                    }}
-                                />
-                            </View>
-                            <View style={[styles.errorCon, err.value2 ? { borderTopColor: colors.error } : {}]}>
-                                <Text style={styles.error}>{err.value2 || ""}</Text>
-                            </View>
-                        </View>
-                    </View>
+                    <View style={[_global.inputRow, err.value2 ? _global.inputErr : null]}>
+						<View style={_global.inputRowMain}>
+							{
+								n ? <Text style={_global.inputLable}>{intl.get('numberOfBends')}</Text> : null
+							}
+							<TextInput style={_global.input}
+								keyboardType='numeric'
+								returnKeyType='done'
+								value={n}
+								placeholder={intl.get("numberOfBends")}
+								onChangeText={(val) => {
+									setN(val);
+									setErr(Object.assign(err, { value2: false }))
+								}}
+								placeholderTextColor={_global.inputLabelColor}
+							/>
+						</View>
+					</View>
+					<View style={_global.inputErrCon}>
+						<Text style={_global.inputErrText}>{err.value2 || ""}</Text>
+					</View>
 
-                    <View style={styles.row}>
-                        <Text style={styles.label}>{intl.get('finalRadius')}</Text>
-                        <View style={styles.right}>
-                            <View style={styles.inputCon}>
-                                <TextInput style={styles.input} keyboardType='numeric' returnKeyType='done'
-                                    placeholder={intl.get("pleaseEnter")} placeholderTextColor={colors.grey3}
-                                    value={r} 
-                                    onChangeText={(val) => {
-                                        setR(val);
-                                        setErr(Object.assign(err, { value3: false }))
-                                    }}
-                                />
-                            </View>
-                            <View style={[styles.errorCon, err.value3 ? { borderTopColor: colors.error } : {}]}>
-                                <Text style={styles.error}>{err.value3 || ""}</Text>
-                            </View>
-                        </View>
-                    </View>
+                    <View style={[_global.inputRow, err.value3 ? _global.inputErr : null]}>
+						<View style={_global.inputRowMain}>
+							{
+								r ? <Text style={_global.inputLable}>{intl.get('finalRadius')}</Text> : null
+							}
+							<TextInput style={_global.input}
+								keyboardType='numeric'
+								returnKeyType='done'
+								value={r}
+								placeholder={intl.get("finalRadius")}
+								onChangeText={(val) => {
+									setR(val);
+									setErr(Object.assign(err, { value3: false }))
+								}}
+								placeholderTextColor={_global.inputLabelColor}
+							/>
+						</View>
+					</View>
+					<View style={_global.inputErrCon}>
+						<Text style={_global.inputErrText}>{err.value3 || ""}</Text>
+					</View>
 
                     <View style={styles.picCon}>
-                        <Image source={require('../../assets/images/bendingArcPic.png')} style={[styles.pic,{
+                        <Image source={require('../../assets/images/bending04_1.png')} style={[styles.pic,{
                             width: 300, height: 169
                         }]} />
                     </View>
 
-                    <View style={styles.btnCon}>
-                        <Button title={intl.get('calculate')} onPress={calculate} containerStyle={styles.btn} buttonStyle={styles.btn} />
+                    <View style={_global.btnCon}>
+                        <Button type='primary' onPress={calculate} style={_global.btn}>{intl.get('calculate')}</Button>
                     </View>
                 </View>
 
                 {
                     result !== false ? (
                         <Animated.View style={[styles.resultCon, { opacity }]}>
-                           <View style={styles.resultRow}>
-                                <Text style={[styles.result,{fontSize: 15}]}>{intl.get('singleAngle')+result.q} mm</Text>
-                            </View>
-                            <View style={styles.resultRow}>
-                                <Text style={[styles.result,{fontSize: 15}]}>{intl.get('bendsDistance')+result.p} mm</Text>
+                            <View style={styles.result}>
+                                <View style={styles.resultRow}>
+                                    <Text style={[styles.resultItem,{fontSize: 15}]}>{intl.get('singleAngle') + result.q} mm</Text>
+                                </View>
+                                <View style={styles.resultRow}>
+                                    <Text style={[styles.resultItem,{fontSize: 15}]}>{intl.get('bendsDistance') + result.p} mm</Text>
+                                </View>
                             </View>
                         </Animated.View>
                     ) : null

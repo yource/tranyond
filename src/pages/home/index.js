@@ -5,6 +5,7 @@ import styles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentProduct } from '../../store/products'
 import FastImage from 'react-native-fast-image'
+import HeaderTopSpace from '../../components/headerTopSpace';
 
 const calculator = [{
     path: "bending1",
@@ -48,8 +49,9 @@ function HomePage({ navigation }) {
     }
 
     return (
-        <SafeAreaView>
-            <ScrollView style={[styles.page]}>
+        <View style={_global.pageContainer}>
+            <HeaderTopSpace/>
+            <ScrollView style={[_global.page,styles.page]}>
                 <View style={styles.header}>
                     <TouchableOpacity activeOpacity={0.5} style={styles.toggleBtn} fill='none' onPress={toggleClick}>
                         <Image style={styles.toggleIcon} source={require('../../assets/icon/toggle.png')} />
@@ -81,7 +83,7 @@ function HomePage({ navigation }) {
                     }
                 </View>
             </ScrollView>
-        </SafeAreaView>
+        </View>
     );
 }
 export default HomePage

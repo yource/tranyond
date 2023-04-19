@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import intl from 'react-intl-universal';
 import { Text, View, ScrollView, TextInput, Image, Animated, Easing } from 'react-native';
-import { Button, Modal } from '@ant-design/react-native'
+import { Button, Modal, Toast } from '@ant-design/react-native'
 import { PageHeader, Select } from '../../components';
 import styles from './styles';
 
@@ -12,9 +12,7 @@ export default function () {
 	const [steel, setSteel] = useState("");
 	const [length, setLength] = useState("");
 	const [thickness, setThickness] = useState("");
-	const [thicknessCustom, setThicknessCustom] = useState("");
 	const [v, setV] = useState("");
-	const [vCustom, setVCustom] = useState("");
 	const calculate = () => {
 		var timer = 0;
 		if (result) {
@@ -41,26 +39,12 @@ export default function () {
 		if (!thickness) {
 			_err.value3 = intl.get("pleaseSelect")
 		} else {
-			if (thickness == "custom") {
-				value3 = Number(thicknessCustom);
-				if (!value3 || value3 <= 0 || value3 > 150) {
-					_err.value3 = intl.get("between0and150")
-				}
-			} else {
-				value3 = Number(thickness)
-			}
+			value3 = Number(thickness)
 		}
 		if (!v) {
 			_err.value4 = intl.get("pleaseSelect")
 		} else {
-			if (v == "custom") {
-				value4 = Number(vCustom);
-				if (!value4 || value4 <= 0 || value4 > 200) {
-					_err.value4 = intl.get("between0and200")
-				}
-			} else {
-				value4 = Number(v)
-			}
+			value4 = Number(v)
 		}
 
 		setErr(_err);
@@ -151,10 +135,24 @@ export default function () {
 									{ value: '5', label: '5' },
 									{ value: '6', label: '6' },
 									{ value: '8', label: '8' },
-									// { value: 'custom', label: intl.get('custom') },
+									{ value: 'Other', label: "Other" },
 								]}
 								onSelect={(value) => {
-									setThickness(value);
+									if(value==="Other"){
+										Modal.prompt("Please Input", '',(val)=>{
+											if(val){
+												val = Number(val);
+												if (!val || val <= 0 || val > 150) {
+													Toast.info(intl.get("between0and150"))
+													setThickness("")
+												}else{
+													setThickness(val)
+												}
+											}
+										},'default','',[intl.get("thickness")])
+									}else{
+										setThickness(value);
+									}
 									setErr(Object.assign(err, { value3: false }))
 								}}
 							/>
@@ -163,24 +161,6 @@ export default function () {
 					<View style={_global.inputErrCon}>
 						<Text style={_global.inputErrText}>{err.value3 || ""}</Text>
 					</View>
-
-					{
-						thickness == "custom" ? (
-							<View style={styles.inputCon}>
-								<TextInput style={styles.input}
-									keyboardType='numeric'
-									returnKeyType='done'
-									value={thicknessCustom}
-									placeholder={intl.get("pleaseEnter")}
-									onChangeText={(val) => {
-										setThicknessCustom(val);
-										setErr(Object.assign(err, { value3: false }))
-									}}
-									placeholderTextColor={_global.grey3}
-								/>
-							</View>
-						) : null
-					}
 
 					<View style={[_global.inputRow, err.value4 ? _global.inputErr : null]}>
 						<View style={_global.inputRowMain}>
@@ -199,10 +179,24 @@ export default function () {
 									{ value: '14', label: '14' },
 									{ value: '16', label: '16' },
 									{ value: '20', label: '20' },
-									// { value: 'custom', label: intl.get('custom') },
+									{ value: 'Other', label: "Other" },
 								]}
 								onSelect={(value) => {
-									setV(value);
+									if(value==="Other"){
+										Modal.prompt("Please Input", '',(val)=>{
+											if(val){
+												var value4 = Number(val);
+												if (!value4 || value4 <= 0 || value4 > 200) {
+													Toast.info(intl.get("between0and200"))
+													setV("")
+												}else{
+													setV(val)
+												}
+											}
+										},'default','',[intl.get("V")])
+									}else{
+										setV(value);
+									}
 									setErr(Object.assign(err, { value4: false }))
 								}}
 							/>
@@ -211,24 +205,6 @@ export default function () {
 					<View style={_global.inputErrCon}>
 						<Text style={_global.inputErrText}>{err.value4 || ""}</Text>
 					</View>
-
-					{
-						v == "custom" ? (
-							<View style={styles.inputCon}>
-								<TextInput style={styles.input}
-									keyboardType='numeric'
-									returnKeyType='done'
-									value={vCustom}
-									placeholder={intl.get("pleaseEnter")}
-									onChangeText={(val) => {
-										setVCustom(val);
-										setErr(Object.assign(err, { value4: false }))
-									}}
-									placeholderTextColor={_global.grey3}
-								/>
-							</View>
-						) : null
-					}
 
 					<View style={styles.picCon}>
 						<Image source={require('../../assets/images/bending0.png')} style={styles.pic} />

@@ -108,17 +108,20 @@ const styles = StyleSheet.create({
         paddingTop: 3,
         paddingBottom: 3
     },
-    
+    dialogBlurWrap:{
+        flex: 1,
+    },
     dialogContainer: {
         justifyContent: 'center',
         alignItems:'center',
-        flex: 1
+        flex: 1,
     },
     dialog:{
         backgroundColor: _global.pageBackgroundColor,
         borderRadius: 16,
         overflow: 'hidden',
-        width: _global.width-50,
+        width: 320,
+        maxWidth: _global.width-50,
         height: 600,
         maxHeight: _global.height-160
     },
@@ -168,7 +171,7 @@ const styles = StyleSheet.create({
     dialogVideo: {
         width: '100%',
         height: parseInt((_global.width-50)*9/16),
-        backgroundColor: '#333333'
+        backgroundColor: '#787878'
     },
     dialogImageCon: {
         alignItems: 'center',

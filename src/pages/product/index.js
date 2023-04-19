@@ -16,6 +16,7 @@ function ProductPage({ navigation }) {
     const sections = currentProduct.detail.sections;
     const [activeModel, setActiveModel] = useState(0); // 当前选中的model序号
     const [dialog, setDialog] = useState("")
+
     return (
         <View style={_global.pageContainer}>
             <PageHeader title={currentProduct.name} />
@@ -45,10 +46,10 @@ function ProductPage({ navigation }) {
                                         {
                                             section.content.map((md, idxmd) => (
                                                 md.attrs && activeModel == idxmd ?
-                                                    <View style={styles.attrs} key={'md'+idxmd}>
+                                                    <View style={styles.attrs} key={'md' + idxmd}>
                                                         {
                                                             md.attrs.map(attr => (
-                                                                <View key={'attr'+attr.name} style={[styles.attrItem, attr.style]}>
+                                                                <View key={'attr' + attr.name} style={[styles.attrItem, attr.style]}>
                                                                     <Text style={[styles.attrValue, attr.valueStyle]}>{attr.value}</Text>
                                                                     <Text style={[styles.attrName, attr.nameStyle]}>{attr.name}</Text>
                                                                 </View>
@@ -59,7 +60,7 @@ function ProductPage({ navigation }) {
                                         }
                                         {
                                             section.content.map((md, idxmd1) => (
-                                                <View key={'md1'+idxmd1}>
+                                                <View key={'md1' + idxmd1}>
                                                     {
                                                         md.desc ? <Text style={styles.modelDesc}>{md.desc}</Text> : null
                                                     }
@@ -97,74 +98,76 @@ function ProductPage({ navigation }) {
                                         onRequestClose={() => {
                                             setDialog("")
                                         }}>
-                                        <BlurView style={styles.dialogContainer} blurType="light">
-                                            <HeaderTopSpace />
-                                            <View style={styles.dialog}>
-                                                <View style={styles.dialogHeader}>
-                                                    <Text style={styles.dialogHeaderTitle}>{section.dialogContent.title}</Text>
-                                                    <Pressable style={styles.dialogCloseBtn} onPress={() => { setDialog("") }}>
-                                                        <Icon name="close-circle" size={30} color={_global.fontColor3}></Icon>
-                                                    </Pressable>
+                                        <BlurView style={styles.dialogBlurWrap} blurType="light">
+                                            <View style={styles.dialogContainer}>
+                                                <HeaderTopSpace />
+                                                <View style={styles.dialog}>
+                                                    <View style={styles.dialogHeader}>
+                                                        <Text style={styles.dialogHeaderTitle}>{section.dialogContent.title}</Text>
+                                                        <Pressable style={styles.dialogCloseBtn} onPress={() => { setDialog("") }}>
+                                                            <Icon name="close-circle" size={30} color={_global.fontColor3}></Icon>
+                                                        </Pressable>
+                                                    </View>
+                                                    <ScrollView style={styles.dialogBody}>
+                                                        {
+                                                            section.dialogContent.sections.map((sect, idx1) => (
+                                                                <View style={styles['dialogSection_' + sect.type]} key={"sect" + idx1}>
+                                                                    {
+                                                                        sect.type == "attrs" ? sect.attrs.map((at, atidx) => (
+                                                                            <View style={styles.dialogAttrItem} key={'at' + atidx}>
+                                                                                <Text style={styles.dialogAttrName}>{at.name}</Text>
+                                                                                {
+                                                                                    at.values.map((val, idx2) => (
+                                                                                        <View key={"atv" + idx2} style={styles.dialogAttrLine}>
+                                                                                            <Text style={styles.dialogAttrLabel}>{sect.models[idx2]}</Text>
+                                                                                            <Text style={styles.dialogAttrValue}>{val}</Text>
+                                                                                        </View>
+                                                                                    ))
+                                                                                }
+                                                                            </View>
+                                                                        )) : null
+                                                                    }
+                                                                    {
+                                                                        sect.type == "video" ? (
+                                                                            <Video source={{ uri: sect.content }} controls={true}
+                                                                                style={styles.dialogVideo} />
+                                                                        ) : null
+                                                                    }
+                                                                    {
+                                                                        sect.type == "title" ? (
+                                                                            <Text style={[styles.dialogContentTitle, sect.style]}>{sect.content}</Text>
+                                                                        ) : null
+                                                                    }
+                                                                    {
+                                                                        sect.type == "text" ? (
+                                                                            <Text style={[styles.dialogContentText, sect.style]}>{sect.content}</Text>
+                                                                        ) : null
+                                                                    }
+                                                                    {
+                                                                        sect.type == "image" ? (
+                                                                            <View style={styles.dialogImageCon}>
+                                                                                <FastImage
+                                                                                    style={[styles.image, sect.style]}
+                                                                                    source={{ uri: sect.content }}
+                                                                                    resizeMode={FastImage.resizeMode.contain} ></FastImage>
+                                                                            </View>
+                                                                        ) : null
+                                                                    }
+                                                                    {
+                                                                        sect.type == "pdf" ? (
+                                                                            <View style={styles.dialogPdfCon}>
+                                                                                <Pdf
+                                                                                    source={{ uri: sect.content }}
+                                                                                    style={styles.dialogPdf} />
+                                                                            </View>
+                                                                        ) : null
+                                                                    }
+                                                                </View>
+                                                            ))
+                                                        }
+                                                        <View style={{ height: 50 }}></View>
+                                                    </ScrollView>
                                                 </View>
-                                                <ScrollView style={styles.dialogBody}>
-                                                    {
-                                                        section.dialogContent.sections.map((sect, idx1) => (
-                                                            <View style={styles['dialogSection_' + sect.type]} key={"sect" + idx1}>
-                                                                {
-                                                                    sect.type == "attrs" ? sect.attrs.map((at,atidx) => (
-                                                                        <View style={styles.dialogAttrItem} key={'at'+atidx}>
-                                                                            <Text style={styles.dialogAttrName}>{at.name}</Text>
-                                                                            {
-                                                                                at.values.map((val, idx2) => (
-                                                                                    <View key={"atv" + idx2} style={styles.dialogAttrLine}>
-                                                                                        <Text style={styles.dialogAttrLabel}>{sect.models[idx2]}</Text>
-                                                                                        <Text style={styles.dialogAttrValue}>{val}</Text>
-                                                                                    </View>
-                                                                                ))
-                                                                            }
-                                                                        </View>
-                                                                    )) : null
-                                                                }
-                                                                {
-                                                                    sect.type == "video" ? (
-                                                                        <Video source={{ uri: sect.content }} controls={true}
-                                                                            style={styles.dialogVideo} />
-                                                                    ) : null
-                                                                }
-                                                                {
-                                                                    sect.type == "title" ? (
-                                                                        <Text style={[styles.dialogContentTitle, sect.style]}>{sect.content}</Text>
-                                                                    ) : null
-                                                                }
-                                                                {
-                                                                    sect.type == "text" ? (
-                                                                        <Text style={[styles.dialogContentText, sect.style]}>{sect.content}</Text>
-                                                                    ) : null
-                                                                }
-                                                                {
-                                                                    sect.type == "image" ? (
-                                                                        <View style={styles.dialogImageCon}>
-                                                                            <FastImage
-                                                                                style={[styles.image, sect.style]}
-                                                                                source={{ uri: sect.content }}
-                                                                                resizeMode={FastImage.resizeMode.contain} ></FastImage>
-                                                                        </View>
-                                                                    ) : null
-                                                                }
-                                                                {
-                                                                    sect.type == "pdf" ? (
-                                                                        <View style={styles.dialogPdfCon}>
-                                                                            <Pdf
-                                                                                source={{uri:sect.content}}
-                                                                                style={styles.dialogPdf} />
-                                                                        </View>
-                                                                    ) : null
-                                                                }
-                                                            </View>
-                                                        ))
-                                                    }
-                                                    <View style={{ height: 50 }}></View>
-                                                </ScrollView>
                                             </View>
                                         </BlurView>
                                     </Modal>

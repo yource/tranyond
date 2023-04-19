@@ -328,7 +328,7 @@ var prodoucts = [
                         sections: [
                             {
                                 type: "pdf",
-                                content: "https://img1.wsimg.com/blobby/go/8adb8788-1ab0-4ee0-85df-8b44a5701e35/downloads/tranyond-laserwelding.pdf"
+                                content: "https://sheetmetalpro.oss-us-east-1.aliyuncs.com/files/tranyond-laserwelding.pdf"
                             }
                         ]
                     }

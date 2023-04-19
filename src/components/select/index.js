@@ -87,6 +87,8 @@ export default function (props) {
         const findOption = props.options.find(item => (item.value === props.value));
         if (findOption) {
             curLabel = findOption.label
+        }else{
+            curLabel = props.value
         }
         if (label !== curLabel) {
             setLabel(curLabel)

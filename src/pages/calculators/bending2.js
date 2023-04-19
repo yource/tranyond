@@ -1,10 +1,9 @@
 import React, { useState, useRef } from 'react';
 import intl from 'react-intl-universal';
 import { Text, View, ScrollView, TextInput, Image, Animated, Easing } from 'react-native';
-import { Button } from '@rneui/themed';
+import { Button, Modal, Toast } from '@ant-design/react-native'
 import { PageHeader, Select } from '../../components';
-import { useTheme } from '../../common/themeProvider';
-import makeStyles from './styles';
+import styles from './styles';
 
 export default function () {
     const [result, setResult] = useState(false);
@@ -151,71 +150,73 @@ export default function () {
     }
 
     return (
-        <View style={theme.page}>
+        <View style={_global.pageContainer}>
             <PageHeader title={intl.get("bendingNotch")} />
-            <ScrollView style={styles.page}>
+            <ScrollView style={_global.page}>
                 <View style={styles.section}>
 
-                    <View style={styles.row}>
-                        <Text style={styles.label}>{intl.get('thickness')}</Text>
-                        <View style={styles.right}>
-                            <View style={styles.inputCon}>
-                                <Select style={styles.input}
-                                    value={s}
-                                    placeholder={intl.get("pleaseSelect")}
-                                    options={[
-                                        { value: "0.5", label: "0.5" },
-                                        { value: "0.75", label: "0.75" },
-                                        { value: "1", label: "1" },
-                                        { value: "1.25", label: "1.25" },
-                                        { value: "1.5", label: "1.5" },
-                                        { value: "1.75", label: "1.75" },
-                                        { value: "2", label: "2" },
-                                        { value: "2.5", label: "2.5" },
-                                        { value: "3", label: "3" },
-                                        { value: "3.5", label: "3.5" },
-                                        { value: "4", label: "4" },
-                                        { value: "4.5", label: "4.5" },
-                                        { value: "5", label: "5" },
-                                        { value: "6", label: "6" },
-                                        { value: "7", label: "7" },
-                                        { value: "8", label: "8" },
-                                        { value: "10", label: "10" },
-                                        { value: "12", label: "12" },
-                                        { value: "15", label: "15" },
-                                    ]}
-                                    onSelect={(value) => {
-                                        setS(value);
-                                        setErr(Object.assign(err, { value1: false }))
-                                    }}
-                                />
-                            </View>
-                            <View style={[styles.errorCon, err.value1 ? { borderTopColor: colors.error } : {}]}>
-                                <Text style={styles.error}>{err.value1 || ""}</Text>
-                            </View>
+                    <View style={[_global.inputRow, err.value3 ? _global.inputErr : null]}>
+                        <View style={_global.inputRowMain}>
+                            {
+                                s ? <Text style={_global.inputLable}>{intl.get('thickness')}</Text> : null
+                            }
+                            <Select style={styles.input}
+                                value={s}
+                                placeholder={intl.get("thickness")}
+                                options={[
+                                    { value: "0.5", label: "0.5" },
+                                    { value: "0.75", label: "0.75" },
+                                    { value: "1", label: "1" },
+                                    { value: "1.25", label: "1.25" },
+                                    { value: "1.5", label: "1.5" },
+                                    { value: "1.75", label: "1.75" },
+                                    { value: "2", label: "2" },
+                                    { value: "2.5", label: "2.5" },
+                                    { value: "3", label: "3" },
+                                    { value: "3.5", label: "3.5" },
+                                    { value: "4", label: "4" },
+                                    { value: "4.5", label: "4.5" },
+                                    { value: "5", label: "5" },
+                                    { value: "6", label: "6" },
+                                    { value: "7", label: "7" },
+                                    { value: "8", label: "8" },
+                                    { value: "10", label: "10" },
+                                    { value: "12", label: "12" },
+                                    { value: "15", label: "15" },
+                                ]}
+                                onSelect={(value) => {
+                                    setS(value);
+                                    setErr(Object.assign(err, { value1: false }))
+                                }}
+                            />
                         </View>
+                    </View>
+                    <View style={_global.inputErrCon}>
+                        <Text style={_global.inputErrText}>{err.value1 || ""}</Text>
                     </View>
 
                     <View style={styles.picCon}>
-                        <Image source={require('../../assets/images/bendingMain.png')} style={styles.pic} />
+                        <Image source={require('../../assets/images/bending0.png')} style={styles.pic} />
                     </View>
 
-                    <View style={styles.btnCon}>
-                        <Button title={intl.get('calculate')} onPress={calculate} containerStyle={styles.btn} buttonStyle={styles.btn} />
+                    <View style={_global.btnCon}>
+                        <Button type='primary' onPress={calculate} style={_global.btn}>{intl.get('calculate')}</Button>
                     </View>
                 </View>
 
                 {
                     result !== false ? (
                         <Animated.View style={[styles.resultCon, { opacity }]}>
-                            <View style={styles.resultRow}>
-                                <Text style={[styles.result,styles.resultNormal]}>{intl.get('minV')+result.result1} mm</Text>
-                            </View>
-                            <View style={styles.resultRow}>
-                                <Text style={styles.result}>{intl.get('bestV')+result.result2} mm</Text>
-                            </View>
-                            <View style={styles.resultRow}>
-                                <Text style={[styles.result,styles.resultNormal]}>{intl.get('maxV')+result.result3} mm</Text>
+                            <View style={styles.result}>
+                                <View style={styles.resultRow}>
+                                    <Text style={[styles.resultItem,styles.resultNormal]}>{intl.get('minV') + result.result1} mm</Text>
+                                </View>
+                                <View style={styles.resultRow}>
+                                    <Text style={styles.resultItem}>{intl.get('bestV') + result.result2} mm</Text>
+                                </View>
+                                <View style={styles.resultRow}>
+                                    <Text style={[styles.resultItem,styles.resultNormal]}>{intl.get('maxV') + result.result3} mm</Text>
+                                </View>
                             </View>
                         </Animated.View>
                     ) : null

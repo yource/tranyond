@@ -7,7 +7,8 @@ const styles = StyleSheet.create({
         paddingBottom: 36
     },
     header: {
-        height: 64,
+        paddingTop: 20,
+        height: 72,
         fontSize: _global.fontSize,
         flexDirection: 'row',
         justifyContent: 'space-between',
