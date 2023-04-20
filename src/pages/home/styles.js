@@ -16,20 +16,35 @@ const styles = StyleSheet.create({
         height: 48,
         marginBottom: 24
     },
-    toggleBtn: {
+    toggleBtns: {
+        flex: 1,
         flexDirection: 'row',
-        height: 40,
-        alignItems: 'center'
+        height: 30,
+        alignItems: 'flex-end',
+    },
+    toggleBtn: {
+        marginRight: 10,
+        paddingBottom: 4
     },
     toggleIcon: {
         width: 20,
         height: 20
     },
     toggleText: {
-        color: _global.fontColor,
         paddingLeft: 8,
-        fontSize: 20,
+        fontSize: 17,
+        color: _global.fontColor,
+    },
+    active: {
+        fontSize: 18,
         fontWeight: 600
+    },
+    btnButtom: {
+        position: 'absolute',
+        bottom:0,
+        height: 3,
+        borderRadius: 2,
+        backgroundColor: "#ddd"
     },
     userIcon: {
         width: 34,

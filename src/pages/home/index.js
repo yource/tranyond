@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, View, Text, Image, Pressable, ImageBackground, TouchableOpacity } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { ScrollView, View, Text, Image, Pressable, Animated, TouchableOpacity } from 'react-native';
 import { Toast, Icon } from '@ant-design/react-native';
 import styles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
@@ -38,8 +38,26 @@ function HomePage({ navigation }) {
     const userinfo = useSelector(state => state.user.userinfo);
     
     const [type, setType] = useState('Products')
+    const left = useRef(new Animated.Value(6)).current;
+    const width = useRef(new Animated.Value(78)).current;
     const toggleClick = () => {
+        const _left = type == "Products" ? 92:6;
+        const _width = type == "Products" ? 90:78;
         setType(type == "Products" ? "Calculator" : "Products")
+        if(_left!=left){
+            Animated.parallel([
+                Animated.timing(left, {
+                    toValue: _left,
+                    duration: 250,
+                    useNativeDriver: false,
+                }).start(),
+                Animated.timing(width, {
+                    toValue: _width,
+                    duration: 250,
+                    useNativeDriver: false,
+                }).start()
+            ])
+        }
     }
 
     const list = useSelector(state => state.products.list);
@@ -53,10 +71,15 @@ function HomePage({ navigation }) {
             <HeaderTopSpace/>
             <ScrollView style={[_global.page,styles.page]}>
                 <View style={styles.header}>
-                    <TouchableOpacity activeOpacity={0.5} style={styles.toggleBtn} fill='none' onPress={toggleClick}>
-                        <Image style={styles.toggleIcon} source={require('../../assets/icon/toggle.png')} />
-                        <Text style={styles.toggleText}>{type}</Text>
-                    </TouchableOpacity>
+                    <View style={styles.toggleBtns}>
+                        <Pressable style={styles.toggleBtn} onPress={toggleClick}>
+                            <Text style={[styles.toggleText,type === "Products"?styles.active:null]}>Products</Text>
+                        </Pressable>
+                        <Pressable style={styles.toggleBtn} onPress={toggleClick}>
+                            <Text style={[styles.toggleText,type === "Calculator"?styles.active:null]}>Calculator</Text>
+                        </Pressable>
+                        <Animated.View style={[styles.btnButtom,{left,width}]}></Animated.View>
+                    </View>
                     <TouchableOpacity activeOpacity={0.5} onPress={() => { navigation.navigate("user") }}>
                         <Image style={styles.userIcon} source={require('../../assets/icon/user.png')} />
                     </TouchableOpacity>
