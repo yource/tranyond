@@ -3,6 +3,7 @@ import 'react-native-gesture-handler';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useSelector, useDispatch } from 'react-redux';
+import RNBootSplash from "react-native-bootsplash";
 import defaultProducts from './constant/products';
 import storage from './utils/storage';
 import { setProducts } from './store/products';
@@ -44,6 +45,11 @@ const AppContent = () => {
                 dispatch(setProducts(defaultProducts))
             }
         })
+        
+        // 关闭启动屏
+        setTimeout(()=>{
+            RNBootSplash.hide({ fade: true, duration: 200 })
+        },200)
     },[])
 
     return (
