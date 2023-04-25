@@ -66,3 +66,5 @@ yarn-error.log
 /ios
 /android
 /__tests__
+
+package-lock.json

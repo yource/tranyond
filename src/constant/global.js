@@ -13,7 +13,7 @@ _global = {
     fontColor3: "#a7a7a7",
     fontColorGrey: '#8a8c8d',
     fontColorPrimary: "#5682dc",
-    pageBackgroundColor: '#18191a',
+    pageBackgroundColor: '#28292a',
     pageBackgroundColorDark: '#000000',
     inputBackgroundColor: "#222325",
     inputLabelColor: "#86888a",

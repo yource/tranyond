@@ -144,7 +144,9 @@ var prodoucts = [
                         sections: [
                             {
                                 type: "video",
-                                content: "https://sheetmetalpro.oss-us-east-1.aliyuncs.com/video/00700_480p.mp4"
+                                content: "https://sheetmetalpro.oss-us-east-1.aliyuncs.com/video/00700_480p.mp4",
+                                width: 1920,
+                                height: 1080
                             },
                             {
                                 type: "title",
@@ -188,6 +190,7 @@ var prodoucts = [
                     type: "button",
                     content: "BUY IT",
                     color: "primary",
+                    title: 'Mini Press',
                     link:"https://tranyond.shop/products/magnetic-squaring-arm-for-press-brake"
                 },
             ]
@@ -347,6 +350,7 @@ var prodoucts = [
                 {
                     type: "button",
                     content: "BUY IT",
+                    title: "Laser Welding",
                     color: "primary",
                     link:"https://tranyond.shop/products/magnetic-squaring-arm-for-press-brake"
                 },

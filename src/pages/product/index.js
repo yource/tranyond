@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, View, Text, Image, Pressable, ImageBackground, TouchableOpacity, Modal } from 'react-native';
-import { Toast, Icon } from '@ant-design/react-native';
+import React, { useState, useRef } from 'react';
+import { ScrollView, View, Text, Image, Pressable, ActivityIndicator, TouchableOpacity, Modal as ModalWrap } from 'react-native';
+import { WebView } from 'react-native-webview';
+import { Toast, Icon, Modal as ModalPopup } from '@ant-design/react-native';
 import { BlurView } from "@react-native-community/blur";
 import styles from './styles';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,6 +9,7 @@ import FastImage from 'react-native-fast-image'
 import { PageHeader, HeaderTopSpace } from '../../components'
 import Video from 'react-native-video';
 import Pdf from 'react-native-pdf';
+import _global from '../../constant/global';
 
 function ProductPage({ navigation }) {
     const dispatch = useDispatch();
@@ -16,7 +18,34 @@ function ProductPage({ navigation }) {
     const sections = currentProduct.detail.sections;
     const [activeModel, setActiveModel] = useState(0); // 当前选中的model序号
     const [dialog, setDialog] = useState("")
-
+    const [progress, setProgress] = useState(0)
+    const webview = useRef(null)
+    const [webviewShow,setWebviewShow] = useState(false)
+    const [webviewUrl,setWebviewUrl] = useState("about:blank")
+    const [webviewTitle,setWebviewTitle] = useState("")
+    const openWebview=(url,title)=>{
+        if(url.indexOf("//")<0){
+            url = "//"+url
+        }
+        setWebviewUrl(url)
+        setWebviewTitle(title)
+        setWebviewShow(true)
+    }
+    const hideWebview = ()=>{
+        setWebviewShow(false)
+        setTimeout(()=>{
+            setWebviewTitle("")
+            setWebviewUrl("about:blank")
+        },200)
+    }
+    var webviewCanGoBack = false;
+    const onRequestClose = ()=>{
+        if(webviewCanGoBack){
+            webview.current.goback()
+            return true;
+        }
+        return false
+    }
     return (
         <View style={_global.pageContainer}>
             <PageHeader title={currentProduct.name} />
@@ -83,7 +112,7 @@ function ProductPage({ navigation }) {
                                                 if (section.dialogContent) {
                                                     setDialog(section.dialogContent.title)
                                                 } else if (section.link) {
-                                                    console.log("open link")
+                                                    openWebview(section.link,section.title||"")
                                                 }
                                             }}
                                         ><Text style={styles.buttonText}>{section.content}</Text></TouchableOpacity>
@@ -91,7 +120,7 @@ function ProductPage({ navigation }) {
                             }
                             {
                                 section.type === "button" && section.dialogContent ? (
-                                    <Modal
+                                    <ModalWrap
                                         visible={dialog == section.dialogContent.title}
                                         animationType="none"
                                         transparent={true}
@@ -129,8 +158,14 @@ function ProductPage({ navigation }) {
                                                                     }
                                                                     {
                                                                         sect.type == "video" ? (
-                                                                            <Video source={{ uri: sect.content }} controls={true}
+                                                                            <View style={[styles.dialogVideoCon,{
+                                                                                width: '100%',
+                                                                                height: parseInt((_global.width-36>420?420:_global.width-36)/(sect.width/sect.height))
+                                                                            }]}>
+                                                                                <ActivityIndicator />
+                                                                                <Video source={{ uri: sect.content }} controls={true}
                                                                                 style={styles.dialogVideo} />
+                                                                            </View>
                                                                         ) : null
                                                                     }
                                                                     {
@@ -170,7 +205,7 @@ function ProductPage({ navigation }) {
                                                 </View>
                                             </View>
                                         </BlurView>
-                                    </Modal>
+                                    </ModalWrap>
                                 ) : null
                             }
                             {
@@ -191,6 +226,73 @@ function ProductPage({ navigation }) {
                 }
                 <View style={{ height: 50 }}></View>
             </ScrollView>
+
+            <ModalPopup
+                popup
+                visible={webviewShow}
+                animationType="slide-up"
+                onClose={hideWebview}
+                onRequestClose={onRequestClose}
+                style={{height: _global.height-110,borderTopLeftRadius: 16,borderTopRightRadius: 16}}>
+                <View style={{
+                    height: 40,
+                    flexDirection:'row',
+                    alignItems: 'center',
+                    backgroundColor:_global.pageBackgroundColor,
+                    borderBottomColor: '#111111',
+                    borderBottomWidth: 2,
+                    borderTopLeftRadius: 12,
+                    borderTopRightRadius: 12}}>
+                    <Text style={{
+                        flex: 1, 
+                        color: "#ffffff",
+                        paddingLeft: 15,
+                        fontSize: 18,
+                        fontWeight: 500
+                        }}>{webviewTitle}</Text>
+                    <Pressable 
+                        style={{width:50,height:40,alignItems:'center',justifyContent:'center'}}
+                        onPress={hideWebview}>
+                        <Image source={require("../../assets/icon/close1.png")} style={{width: 24,height:24, opacity:0.8}} />
+                    </Pressable>
+                </View>
+                <View style={{
+                    height: 2, 
+                    marginTop: -2,
+                    backgroundColor:_global.buttonBackgroundColor,
+                    width: parseInt(progress*100)+'%'}}></View>
+                <WebView
+                    ref={webview}
+                    onLoadStart={(syntheticEvent)=>{
+                        const { nativeEvent } = syntheticEvent;
+                        webviewCanGoBack = nativeEvent.canGoBack
+                        setProgress(10)
+                    }}
+                    onLoadProgress={({ nativeEvent }) => {
+                        setProgress(nativeEvent.progress)
+                    }}
+                    onLoadEnd={(syntheticEvent)=>{
+                        const { nativeEvent } = syntheticEvent;
+                        webviewCanGoBack = nativeEvent.canGoBack
+                        setTimeout(()=>{
+                            setProgress(0)
+                        },500)
+                    }}
+                    onError={() => {
+                        hideWebview()
+                        Toast("Network Error")
+                    }}
+                    onRenderProcessGone={syntheticEvent => {
+                        hideWebview()
+                        Toast("Failed to open page")
+                    }}
+                    startInLoadingState={true}
+                    renderLoading={() => <ActivityIndicator/>}
+                    originWhitelist={['*']}
+                    source={{uri: webviewUrl}} 
+                    style={{flex:0,height: _global.height-160,backgroundColor: '#dedede'}}
+                    containerStyle={{flex:0,height: _global.height-160}}/>
+            </ModalPopup>
         </View>
     );
 }

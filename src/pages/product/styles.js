@@ -120,9 +120,9 @@ const styles = StyleSheet.create({
         backgroundColor: _global.pageBackgroundColor,
         borderRadius: 16,
         overflow: 'hidden',
-        width: 320,
-        maxWidth: _global.width-50,
-        height: 600,
+        width: 420,
+        maxWidth: _global.width-36,
+        height: 720,
         maxHeight: _global.height-160
     },
     dialogHeader:{
@@ -168,10 +168,19 @@ const styles = StyleSheet.create({
         color: _global.fontColor2,
         fontSize: 12
     },
+    dialogVideoCon: {
+        backgroundColor: '#787878',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     dialogVideo: {
         width: '100%',
-        height: parseInt((_global.width-50)*9/16),
-        backgroundColor: '#787878'
+        height: "100%",
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
     },
     dialogImageCon: {
         alignItems: 'center',
@@ -183,9 +192,8 @@ const styles = StyleSheet.create({
         flex: 1
     },
     dialogPdf:{
-        height: 520,
-        maxHeight: _global.height-240,
-        backgroundColor:"#333"
+        height: _global.height-220,
+        backgroundColor:"#454545"
     },
     dialogContentTitle: {
         fontSize: 16,
